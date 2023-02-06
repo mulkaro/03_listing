@@ -1,6 +1,6 @@
 import React from 'react';
 import './main.css';
-import shortid from 'shortid';
+//import shortid from 'shortid';
 
 function Listing (jsonData) {
   function Show_attrib(partype,str1, str2) {
@@ -44,10 +44,10 @@ function Listing (jsonData) {
     return (result)
   }
 
-  function Good(item) {
+  function Good(item, index) {
 
     return(
-      <div className="item" key={shortid.generate()}>
+      <div className="item" key={index}>
         <div className="item-image">
           <a href="{item.url}">
             <img src="{item.MainImage}" alt=""/>
@@ -62,19 +62,13 @@ function Listing (jsonData) {
     )
   }
 
-  let jsonForm = JSON.parse(jsonData);
-  //let jsonForm = jsonData;
+  const jsonForm = JSON.parse(jsonData);
 
-  for (var i = 0; i < jsonForm.length; i++)
-  {
-    let obj = jsonForm[i];
-    console.log(JSON.stringify(obj));
-    return(
-      <div>
-        <Good item={obj} />
-      </div>  
-      )
-  }
+  return (
+    <div class="item-list">
+      {jsonForm.map((card) => <Good item={card} index={card.listing_id} />)}
+    </div>
+  )  
     
 }
 

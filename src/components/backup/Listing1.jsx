@@ -1,6 +1,6 @@
 import React from 'react';
 import './main.css';
-import shortid from 'shortid';
+//import JsonData from './etsy.json';
 
 function Listing (jsonData) {
   function Show_attrib(partype,str1, str2) {
@@ -44,38 +44,26 @@ function Listing (jsonData) {
     return (result)
   }
 
-  function Good(item) {
-
-    return(
-      <div className="item" key={shortid.generate()}>
-        <div className="item-image">
-          <a href="{item.url}">
-            <img src="{item.MainImage}" alt=""/>
-          </a>
+   return (jsonData.map(
+    (info) => {
+      return (
+        <div class="item">
+          <div class="item-image">
+            <a href="{info.url}">
+              <img src="{info.MainImage}" alt=""/>
+            </a>
+          </div>
+          <div class="item-details">
+            <p class="item-title">{Show_attrib('TITLE','{info.title}', '')}</p>
+            <p class="item-price">{Show_attrib('PRICE','{info.currency_code}', '{info.price}')}</p>
+            <p class={Show_attrib('LEFT','{info.quantity}', '')}>${info.quantity} left</p>
+          </div>
         </div>
-        <div className="item-details">
-          <p className="item-title">{Show_attrib('TITLE','{item.title}', '')}</p>
-          <p className="item-price">{Show_attrib('PRICE','{item.currency_code}', '{item.price}')}</p>
-          <p className={Show_attrib('LEFT','{item.quantity}', '')}>${item.quantity} left</p>
-        </div>
-    </div>
-    )
-  }
-
-  let jsonForm = JSON.parse(jsonData);
-  //let jsonForm = jsonData;
-
-  for (var i = 0; i < jsonForm.length; i++)
-  {
-    let obj = jsonForm[i];
-    console.log(JSON.stringify(obj));
-    return(
-      <div>
-        <Good item={obj} />
-      </div>  
       )
-  }
-    
+    }
+  )
+  )
+     
 }
 
 export default Listing;
