@@ -1,4 +1,3 @@
-//import { render } from '@testing-library/react';
 import React from 'react';
 import './main.css';
 import shortid from 'shortid';
@@ -48,7 +47,7 @@ function Listing ({jsonData}) {
   function Good({item}) {
 
     return(
-      <div className="item" key={item.listing_id}>
+      <div className="item" key={shortid.generate()}>
         <div className="item-image">
           <a href={item.url}>
             <img src={item.MainImage.url_570xN} alt=""/>
@@ -59,51 +58,26 @@ function Listing ({jsonData}) {
           <p className="item-price">{Show_attrib('PRICE',item.currency_code, item.price)}</p>
           <p className={Show_attrib('LEFT',item.quantity,'')}>{item.quantity} left</p>
         </div>
-      </div>      
+    </div>
     )
   }
 
+  //let jsonForm = JSON.parse(jsonData);
+  //let jsonForm = jsonData;
+  var goodsList=[];
   for (var i = 0; i < jsonData.length; i++)
   {
-    return(<Good item={jsonData[i]} key={shortid.generate()} />)
+    var obj = jsonData[i];
+    //console.log(JSON.stringify(obj));
+    goodsList.push(<Good item={obj} />);
+//    return(
+//      <div>
+//        <Good item={jsonData[i]} />
+//      </div>  
+//      )
   };
-  
-  /*var arr=[];
-  for (var i = 0; i < jsonData.length; i++)
-  {
-    arr.push(<Good item={jsonData[i]} key={shortid.generate()} />)
-  };
-  return(arr);*/
 
-  /*for (let obj of jsonData)
-  {
-    return(<Good item={obj} />)
-  };*/
-
-  /*var arr=[];
-  for (let obj of jsonData)
-  {
-    arr.push(obj)
-  };
-  
-  return (<div>{arr.map(elem => <Good item={elem} />)}</div>)*/
-
-  /*var arr=[];
-  jsonData.forEach(element => {
-    arr.push(<Good item={element} />);
-  });
-  return(<div>{arr}</div>);*/
-
-//jsonData.map((card,index) => <Good item={card} />) 
-
-/*return (
-  <div>
-    {jsonData.map((card) => (
-      <Good item={card} />
-    ))}
-  </div>
-);*/
-
+  return(goodsList)  
 
 }
 

@@ -1,0 +1,77 @@
+import React from 'react';
+import './main.css';
+//import JsonData from './etsy.json';
+
+function ShowAttrib({partype,str1, str2}) {
+  let result='';
+  if (partype==='TITLE') {
+    if (str1.length>50) {
+      result = str1.substring(0,50)+'...';
+    }
+    else 
+    {
+      result = str1;
+    }
+  };
+
+  if (partype==='PRICE') {
+    switch (str1) {
+      case 'USD':
+        result = '$' + str2;
+        break;
+      case 'EUR':
+        result = 'Ꞓ' + str2;
+        break;
+      default:
+        result = str2 + ' ' + str1;
+    }
+  }
+
+  if (partype==='LEFT') {
+    switch (str1) {
+      case Number(str1)<=10:
+        result = 'item-quantity level-low';
+        break;
+      case Number(str1)<=20:
+        result = 'item-quantity level-medium';
+        break;
+      default:
+        result = 'item-quantity level-high';
+    }
+  } 
+  
+  return (result)
+}
+
+function GetImage ({url,source}) {
+
+  return (
+    <div class="item-image">
+      <a href={url}>
+        <img src={source} alt="" />
+      </a>
+    </div>  
+  )
+
+}
+
+function Listing ({jsonData}) {
+  return (jsonData.map(
+    (info) => {
+      return (
+        <div class="item-list">
+          <GetImage url={info.url} source={info.MainImage} />
+          <div class="item-details">
+            <p class="item-title">{ShowAttrib ("TITLE",info.title)}</p>
+            <p class="item-price">{ShowAttrib("PRICE",info.currency_code, info.price)}</p>
+            <p class={ShowAttrib("LEFT",info.quantity)}>{info.quantity} left</p>
+          </div>
+        </div>
+      )
+    }
+  )
+  )
+     
+}
+
+export default Listing;

@@ -5,12 +5,12 @@ import JsonFile from './components/etsy.json';
 
 function App() {
 
-  let jsonData = JSON.stringify(JsonFile);
+  //let jsonData = JSON.stringify(JsonFile);
   //let jsonData = JsonFile;
 
   return (
     <div>
-      <Listing jsonData={jsonData} />
+      <Listing jsonData={JsonFile} />
     </div>
   );
 
