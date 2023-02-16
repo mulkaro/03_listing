@@ -3,7 +3,23 @@ import React from 'react';
 import './main.css';
 import shortid from 'shortid';
 
-function Listing ({jsonData}) {
+function Good({item}) {
+
+  return(
+    <div className="item" key={item.listing_id}>
+      <div className="item-image">
+        <a href={item.url}>
+          <img src={item.MainImage.url_570xN} alt=""/>
+        </a>
+      </div>
+      <div className="item-details">
+        <p className="item-title">{Show_attrib('TITLE',item.title, '')}</p>
+        <p className="item-price">{Show_attrib('PRICE',item.currency_code, item.price)}</p>
+        <p className={Show_attrib('LEFT',item.quantity,'')}>{item.quantity} left</p>
+      </div>
+    </div>      
+  )
+
   function Show_attrib(partype,str1, str2) {
     let result='';
     if (partype==='TITLE') {
@@ -45,28 +61,16 @@ function Listing ({jsonData}) {
     return (result)
   }
 
-  function Good({item}) {
+function Listing ({jsonData}) {
 
-    return(
-      <div className="item" key={item.listing_id}>
-        <div className="item-image">
-          <a href={item.url}>
-            <img src={item.MainImage.url_570xN} alt=""/>
-          </a>
-        </div>
-        <div className="item-details">
-          <p className="item-title">{Show_attrib('TITLE',item.title, '')}</p>
-          <p className="item-price">{Show_attrib('PRICE',item.currency_code, item.price)}</p>
-          <p className={Show_attrib('LEFT',item.quantity,'')}>{item.quantity} left</p>
-        </div>
-      </div>      
-    )
+
+
   }
 
-  for (var i = 0; i < jsonData.length; i++)
+  /*for (var i = 0; i < jsonData.length; i++)
   {
     return(<Good item={jsonData[i]} key={shortid.generate()} />)
-  };
+  };*/
   
   /*var arr=[];
   for (var i = 0; i < jsonData.length; i++)
@@ -94,7 +98,7 @@ function Listing ({jsonData}) {
   });
   return(<div>{arr}</div>);*/
 
-//jsonData.map((card,index) => <Good item={card} />) 
+//return(jsonData.map((card,index) => <Good item={card} key={index}/>))
 
 /*return (
   <div>
@@ -107,4 +111,4 @@ function Listing ({jsonData}) {
 
 }
 
-export default Listing;
+//export default Listing;
