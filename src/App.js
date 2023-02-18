@@ -59,17 +59,9 @@ function Good({item}) {
     }
 
     if (partype==='LEFT') {
-      switch (str1) {
-        case Number(str1)<=10:
-          result = 'item-quantity level-low';
-          break;
-        case Number(str1)<=20:
-          result = 'item-quantity level-medium';
-          break;
-        default:
-          result = 'item-quantity level-high';
+      result = ((str1<=10) && "item-quantity level-low") || ((str1<=20) && "item-quantity level-medium") || "item-quantity level-high";
       }
-    } 
+    
     
     return (result)
   }
